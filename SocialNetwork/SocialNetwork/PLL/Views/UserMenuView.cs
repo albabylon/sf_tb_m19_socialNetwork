@@ -1,10 +1,5 @@
 ﻿using SocialNetwork.BLL.Models;
 using SocialNetwork.BLL.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SocialNetwork.PLL.Views
 {
@@ -20,12 +15,14 @@ namespace SocialNetwork.PLL.Views
         {
             while (true)
             {
+                user = userService.FindById(user.Id);
+
                 Console.WriteLine("Входящие сообщения: {0}", user.IncomingMessages.Count());
                 Console.WriteLine("Исходящие сообщения: {0}", user.OutgoingMessages.Count());
 
                 Console.WriteLine("Просмотреть информацию о моём профиле (нажмите 1)");
                 Console.WriteLine("Редактировать мой профиль (нажмите 2)");
-                Console.WriteLine("Добавить в друзья (нажмите 3)");
+                Console.WriteLine("Мои друзья: {0} (нажмите 3)", user.Friends.Count());
                 Console.WriteLine("Написать сообщение (нажмите 4)");
                 Console.WriteLine("Просмотреть входящие сообщения (нажмите 5)");
                 Console.WriteLine("Просмотреть исходящие сообщения (нажмите 6)");
@@ -45,6 +42,12 @@ namespace SocialNetwork.PLL.Views
                     case "2":
                         {
                             Program.userDataUpdateView.Show(user);
+                            break;
+                        }
+
+                    case "3":
+                        {
+                            Program.friendView.Show(user);
                             break;
                         }
 

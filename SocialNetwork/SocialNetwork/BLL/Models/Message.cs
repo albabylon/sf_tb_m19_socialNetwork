@@ -14,6 +14,5 @@
             this.SenderEmail = senderEmail;
             this.RecipientEmail = recipientEmail;
         }
-
     }
 }

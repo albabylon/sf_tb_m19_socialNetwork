@@ -16,7 +16,7 @@ namespace SocialNetwork.DAL.Repositories
 
         public int Delete(int id)
         {
-            return Execute(@"delete from friends where id = :id_p", new { id_p = id });
+            return Execute(@"delete from friends where friend_id = :friend_id", new { friend_id = id });
         }
     }
 
