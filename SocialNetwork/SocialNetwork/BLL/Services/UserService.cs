@@ -8,14 +8,14 @@ namespace SocialNetwork.BLL.Services
 {
     public class UserService
     {
-        MessageService messageService;
-        FriendService friendService;
-        IUserRepository userRepository;
-        public UserService()
+        private readonly IMessageService messageService;
+        private readonly IFriendService friendService;
+        private readonly IUserRepository userRepository;
+        public UserService(IUserRepository userRepository, IMessageService messageService, IFriendService friendService)
         {
-            userRepository = new UserRepository();
-            messageService = new MessageService();
-            friendService = new FriendService();
+            this.userRepository = userRepository;
+            this.messageService = messageService;
+            this.friendService = friendService;
         }
 
         public void Register(UserRegistrationData userRegistrationData)
@@ -98,6 +98,7 @@ namespace SocialNetwork.BLL.Services
             if (this.userRepository.Update(updatableUserEntity) == 0)
                 throw new Exception();
         }
+
 
         private User ConstructUserModel(UserEntity userEntity)
         {

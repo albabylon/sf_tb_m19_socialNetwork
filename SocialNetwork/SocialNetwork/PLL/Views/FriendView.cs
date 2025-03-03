@@ -7,13 +7,11 @@ namespace SocialNetwork.PLL.Views
 {
     public class FriendView
     {
-        private readonly UserService userService;
-        private readonly FriendService friendService;
+        private readonly IFriendService friendService;
 
-        public FriendView(FriendService friendService, UserService userService)
+        public FriendView(IFriendService friendService)
         {
             this.friendService = friendService;
-            this.userService = userService;
         }
 
         public void Show(User user)

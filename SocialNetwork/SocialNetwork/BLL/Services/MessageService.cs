@@ -5,14 +5,14 @@ using SocialNetwork.DAL.Repositories;
 
 namespace SocialNetwork.BLL.Services
 {
-    public class MessageService
+    public class MessageService : IMessageService
     {
-        IMessageRepository messageRepository;
-        IUserRepository userRepository;
-        public MessageService()
+        private readonly IMessageRepository messageRepository;
+        private readonly IUserRepository userRepository;
+        public MessageService(IUserRepository userRepository, IMessageRepository messageRepository)
         {
-            userRepository = new UserRepository();
-            messageRepository = new MessageRepository();
+            this.userRepository = userRepository;
+            this.messageRepository = messageRepository;
         }
 
         public IEnumerable<Message> GetIncomingMessagesByUserId(int recipientId)
@@ -67,4 +67,11 @@ namespace SocialNetwork.BLL.Services
                 throw new Exception();
         }
     }
+
+    public interface IMessageService 
+    {
+        IEnumerable<Message> GetIncomingMessagesByUserId(int recipientId);
+        IEnumerable<Message> GetOutcomingMessagesByUserId(int senderId);
+        void SendMessage(MessageSendingData messageSendingData);
+    };
 }

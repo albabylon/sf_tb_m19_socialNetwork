@@ -1,13 +1,17 @@
 ﻿using SocialNetwork.BLL.Services;
+using SocialNetwork.DAL.Repositories;
 using SocialNetwork.PLL.Views;
 
 namespace SocialNetwork;
 
 class Program
 {
-    static MessageService messageService;
+    static IUserRepository userRepository;
+    static IMessageRepository messageRepository;
+    static IFriendRepository friendRepository;
+    static IMessageService messageService;
+    static IFriendService friendService;
     static UserService userService;
-    static FriendService friendService;
     public static MainView mainView;
     public static RegistrationView registrationView;
     public static AuthenticationView authenticationView;
@@ -21,9 +25,13 @@ class Program
 
     static void Main(string[] args)
     {
-        userService = new UserService();
-        messageService = new MessageService();
-        friendService = new FriendService();
+        userRepository = new UserRepository();
+        messageRepository = new MessageRepository();
+        friendRepository = new FriendRepository();
+
+        messageService = new MessageService(userRepository, messageRepository);
+        friendService = new FriendService(userRepository, friendRepository);
+        userService = new UserService(userRepository, messageService, friendService);
 
         mainView = new MainView();
         registrationView = new RegistrationView(userService);
@@ -34,7 +42,7 @@ class Program
         messageSendingView = new MessageSendingView(messageService, userService);
         userIncomingMessageView = new UserIncomingMessageView();
         userOutcomingMessageView = new UserOutcomingMessageView();
-        friendView = new FriendView(friendService, userService);
+        friendView = new FriendView(friendService);
 
         while (true)
         {

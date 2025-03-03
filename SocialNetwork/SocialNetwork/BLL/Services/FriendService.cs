@@ -5,15 +5,15 @@ using SocialNetwork.DAL.Repositories;
 
 namespace SocialNetwork.BLL.Services
 {
-    public class FriendService
+    public class FriendService : IFriendService
     {
         private readonly IUserRepository userRepository;
         private readonly IFriendRepository friendRepository;
 
-        public FriendService()
+        public FriendService(IUserRepository userRepository, IFriendRepository friendRepository)
         {
-            userRepository = new UserRepository();
-            friendRepository = new FriendRepository();
+            this.userRepository = userRepository;
+            this.friendRepository = friendRepository;
         }
 
         public IEnumerable<Friend> GetFriendsByUserId(int userId)
@@ -59,4 +59,11 @@ namespace SocialNetwork.BLL.Services
                 throw new Exception();
         }
     }
+
+    public interface IFriendService 
+    {
+        IEnumerable<Friend> GetFriendsByUserId(int userId);
+        void AddFriend(FriendData friendData);
+        void RemoveFriend(FriendData friendData);
+    };
 }

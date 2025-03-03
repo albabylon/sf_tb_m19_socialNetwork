@@ -7,9 +7,9 @@ namespace SocialNetwork.PLL.Views
 {
     public class MessageSendingView
     {
-        UserService userService;
-        MessageService messageService;
-        public MessageSendingView(MessageService messageService, UserService userService)
+        private readonly UserService userService;
+        private readonly IMessageService messageService;
+        public MessageSendingView(IMessageService messageService, UserService userService)
         {
             this.messageService = messageService;
             this.userService = userService;
